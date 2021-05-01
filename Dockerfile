@@ -14,7 +14,7 @@ ENV R_PROFILE_USER /home/rstudio/.config/rstudio/.Rprofile
 RUN mkdir -p /etc/services.d/jupyter
 RUN  echo '#!/bin/bash \
   \n jupyter lab --ip=0.0.0.0 --allow-root' \
-  > /etc/services.d/jupyter/start
+  > /etc/services.d/jupyter/run
 
 EXPOSE 8888
 
