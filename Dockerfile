@@ -15,7 +15,10 @@ RUN mkdir -p /etc/services.d/jupyter
 RUN  echo '#!/bin/bash \
   \n jupyter lab --ip=0.0.0.0 --allow-root' \
   > /etc/services.d/jupyter/run
+RUN  echo '#!/bin/bash \
+  \n jupyter stop 8989' \
+  > /etc/services.d/jupyter/finish
 
-EXPOSE 8888
+EXPOSE 8989
 
 CMD ["/init"]
