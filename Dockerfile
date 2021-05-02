@@ -5,6 +5,8 @@ ADD ./configs/rstudio/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-p
 RUN chmod a+rwx -R /home/rstudio
 ENV R_PROFILE_USER /home/rstudio/.config/rstudio/.Rprofile
 
+ENV ADD shiny
+RUN bash /etc/cont-init.d/add
 
 RUN sudo apt-get update -y
 RUN sudo apt-get install -y python3-pip
