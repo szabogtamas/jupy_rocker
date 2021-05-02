@@ -6,6 +6,7 @@ RUN chmod a+rwx -R /home/rstudio
 ENV R_PROFILE_USER /home/rstudio/.config/rstudio/.Rprofile
 
 ENV ADD shiny
+ADD ./configs/rstudio/add_shiny.sh /etc/cont-init.d/add
 RUN bash /etc/cont-init.d/add
 
 RUN sudo apt-get update -y
@@ -18,11 +19,11 @@ ADD ./configs/jupyter/jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
 RUN chmod +x /root/.jupyter/jupyter_lab_config.py
 
 RUN mkdir -p /etc/services.d/jupyter
-RUN  echo '#!/bin/bash \
+RUN echo '#!/bin/bash \
   \n cd /home/rstudio \
   \n jupyter lab --ip=0.0.0.0 --port=8989 --allow-root' \
   > /etc/services.d/jupyter/run
-RUN  echo '#!/bin/bash \
+RUN echo '#!/bin/bash \
   \n kill -TERM -$$' \
   #\n jupyter stop 8989' \
   > /etc/services.d/jupyter/finish
