@@ -35,9 +35,8 @@ RUN sudo apt-get install -y python3-pip
 RUN pip3 install jupyter -U
 RUN pip3 install jupyterlab
 RUN pip3 install jupyterthemes
-RUN /usr/local/bin/jt -t solarizedd
 
-#ADD ./configs/jupyter/overrides.json /sys/share/jupyter/lab/settings/overrides.json
+ADD ./configs/jupyter/config.json /home/rstudio/.jupyter/config.json
 
 RUN mkdir -p /etc/services.d/jupyter
 RUN echo '#!/bin/bash \
