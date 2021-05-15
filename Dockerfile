@@ -37,9 +37,7 @@ RUN pip3 install jupyterlab
 RUN pip3 install jupyterthemes
 RUN /usr/local/bin/jt -t solarizedd
 
-ADD ./configs/jupyter/overrides.json /sys/share/jupyter/lab/settings/overrides.json
-ADD ./configs/jupyter/jupyter_lab_config.py /home/rstudio/.jupyter/jupyter_lab_config.py
-RUN chmod +x /home/rstudio/.jupyter/jupyter_lab_config.py
+#ADD ./configs/jupyter/overrides.json /sys/share/jupyter/lab/settings/overrides.json
 
 RUN mkdir -p /etc/services.d/jupyter
 RUN echo '#!/bin/bash \
