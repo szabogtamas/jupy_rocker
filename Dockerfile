@@ -5,6 +5,7 @@ FROM rocker/rstudio:4.0.4
 ADD ./configs/rstudio/.Rprofile /home/rstudio/.config/rstudio/.Rprofile
 ADD ./configs/rstudio/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
 RUN chmod a+rwx -R /home/rstudio
+ENV R_PROFILE_USER="/home/rstudio/.config/rstudio/.Rprofile"
 
 # Adding shiny to image, not just conditionally
 
@@ -27,16 +28,15 @@ RUN echo '#!/bin/bash \
   > /etc/services.d/shiny-server/run
 RUN adduser rstudio shiny
 
-ENV R_PROFILE_USER /home/rstudio/.config/rstudio/.Rprofile
-
 # Add Jupyter as well
 
 RUN sudo apt-get update -y
 RUN sudo apt-get install -y python3-pip
 RUN pip3 install jupyter -U
 RUN pip3 install jupyterlab
+RUN pip3 install jupyterthemes
+RUN /usr/local/bin/jt -t solarizedd
 
-RUN /usr/local/bin/jupyter labextension install apputils-extension
 ADD ./configs/jupyter/overrides.json /sys/share/jupyter/lab/settings/overrides.json
 ADD ./configs/jupyter/jupyter_lab_config.py /home/rstudio/.jupyter/jupyter_lab_config.py
 RUN chmod +x /home/rstudio/.jupyter/jupyter_lab_config.py
@@ -49,6 +49,8 @@ RUN echo '#!/bin/bash \
 RUN echo '#!/bin/bash \
   \n jupyter stop 8989' \
   > /etc/services.d/jupyter/finish
+
+ENV PATH=/usr/local/bin:$PATH
 
 EXPOSE 8989
 
