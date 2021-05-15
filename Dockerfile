@@ -30,6 +30,7 @@ RUN adduser rstudio shiny
 
 # Add Jupyter as well
 
+RUN sudo apt-get update -y
 RUN sudo apt-get install -y python3-pip
 RUN pip3 install jupyter -U
 RUN pip3 install jupyterlab
@@ -40,7 +41,7 @@ RUN chmod +x /root/.jupyter/jupyter_lab_config.py
 RUN mkdir -p /etc/services.d/jupyter
 RUN echo '#!/bin/bash \
   \n cd /home/rstudio \
-  \n jupyter lab --ip=0.0.0.0 --port=8989 --allow-root' \
+  \n /usr/local/bin/jupyter lab --ip=0.0.0.0 --port=8989 --allow-root' \
   > /etc/services.d/jupyter/run
 RUN echo '#!/bin/bash \
   \n kill -TERM -$$' \
