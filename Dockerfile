@@ -1,12 +1,5 @@
 FROM rocker/rstudio:4.0.4
 
-# Fine-tuning configs for RStudio
-
-ADD ./configs/rstudio/.Rprofile /home/rstudio/.config/rstudio/.Rprofile
-ADD ./configs/rstudio/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
-RUN chmod a+rwx -R /home/rstudio
-ENV R_PROFILE_USER="/home/rstudio/.config/rstudio/.Rprofile"
-
 # Adding shiny to image, not just conditionally
 
 RUN sudo apt-get update -y
@@ -28,6 +21,13 @@ RUN echo '#!/bin/bash \
   > /etc/services.d/shiny-server/run
 RUN adduser rstudio shiny
 
+# Fine-tuning configs for RStudio
+
+ADD ./configs/rstudio/.Rprofile /home/rstudio/.config/rstudio/.Rprofile
+ADD ./configs/rstudio/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
+RUN chmod a+rwx -R /home/rstudio
+RUN env R_PROFILE_USER="/home/rstudio/.config/rstudio/.Rprofile"
+
 # Add Jupyter as well
 
 RUN sudo apt-get update -y
@@ -41,7 +41,7 @@ ADD ./configs/jupyter/config.json /home/rstudio/.jupyter/config.json
 RUN mkdir -p /etc/services.d/jupyter
 RUN echo '#!/bin/bash \
   \n cd /home/rstudio \
-  \n /usr/local/bin/jupyter lab --ip=0.0.0.0 --port=8989 --allow-root' \
+  \n /usr/local/bin/jupyter lab --ip=0.0.0.0 --port=8989 --allow-root --config=/home/rstudio/.jupyter/config.json' \
   > /etc/services.d/jupyter/run
 RUN echo '#!/bin/bash \
   \n jupyter stop 8989' \
