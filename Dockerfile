@@ -5,8 +5,7 @@ ADD ./configs/rstudio/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-p
 RUN chmod a+rwx -R /home/rstudio
 ENV R_PROFILE_USER /home/rstudio/.config/rstudio/.Rprofile
 
-ENV ADD shiny
-RUN wget -O /etc/cont-init.d/add https://github.com/rocker-org/rocker-versioned/blob/dff37a27698cfe8cda894845fa194ecb5f668d84/rstudio/add_shiny.sh
+RUN wget -O /etc/cont-init.d/add https://raw.githubusercontent.com/rocker-org/rocker-versioned/master/rstudio/add_shiny.sh
 RUN bash /etc/cont-init.d/add
 
 RUN sudo apt-get update -y
