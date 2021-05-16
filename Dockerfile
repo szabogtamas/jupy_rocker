@@ -37,11 +37,12 @@ RUN pip3 install jupyterthemes
 
 ADD ./configs/jupyter/config.json /usr/local/share/jupyter/lab/config.json
 ADD ./configs/jupyter/00_startup.py /.ipython/profile_default/startup/00_startup.py
+RUN chmod +x /.ipython/profile_default/startup/00_startup.py
 
 RUN mkdir -p /etc/services.d/jupyter
 RUN echo '#!/bin/bash \
   \n cd /home/rstudio \
-  \n /usr/local/bin/jt -t solarizedd -T -N -kl \
+  \n /usr/local/bin/jt -t solarizedd \
   \n /usr/local/bin/jupyter lab --ip=0.0.0.0 --port=8989 --allow-root' \
   > /etc/services.d/jupyter/run
 RUN echo '#!/bin/bash \
