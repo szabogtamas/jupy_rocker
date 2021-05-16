@@ -24,8 +24,7 @@ RUN adduser rstudio shiny
 # Fine-tuning configs for RStudio
 
 ADD ./configs/rstudio/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
-ADD ./configs/rstudio/.Rprofile /home/rstudio/.config/rstudio/.Rprofile
-RUN sed -i '4 i export R_PROFILE_USER="/home/rstudio/.config/rstudio/.Rprofile" > /dev/null' /etc/services.d/rstudio/run
+ADD ./configs/rstudio/.Rprofile /home/rstudio/.Rprofile
 RUN chmod a+rwx -R /home/rstudio
 
 # Add Jupyter as well
