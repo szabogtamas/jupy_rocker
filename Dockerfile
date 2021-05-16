@@ -35,7 +35,8 @@ RUN pip3 install jupyter -U
 RUN pip3 install jupyterlab
 RUN pip3 install jupyterthemes
 
-ADD ./configs/jupyter/config.json /usr/local/share/jupyter/lab/config.json
+#ADD ./configs/jupyter/config.json /usr/local/share/jupyter/lab/config.json
+ADD ./configs/jupyter/config.json /home/rstudio/.jupyter/lab/user-settings/config.json
 ADD ./configs/jupyter/00_startup.py /.ipython/profile_default/startup/00_startup.py
 RUN chmod +x /.ipython/profile_default/startup/00_startup.py
 
