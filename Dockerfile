@@ -40,10 +40,11 @@ ADD ./configs/jupyter/config.json /home/rstudio/.jupyter/config.json
 RUN mkdir -p /etc/services.d/jupyter
 RUN echo '#!/bin/bash \
   \n cd /home/rstudio \
+  \n /usr/local/bin/jt -t solarizedd -T -N -kl \
   \n /usr/local/bin/jupyter lab --ip=0.0.0.0 --port=8989 --allow-root --config=/home/rstudio/.jupyter/config.json' \
   > /etc/services.d/jupyter/run
 RUN echo '#!/bin/bash \
-  \n jupyter stop 8989' \
+  \n /usr/local/bin/jupyter stop 8989' \
   > /etc/services.d/jupyter/finish
 
 ENV PATH=/usr/local/bin:$PATH
