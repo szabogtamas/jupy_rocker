@@ -33,7 +33,6 @@ RUN sudo apt-get update -y
 RUN sudo apt-get install -y python3-pip
 RUN pip3 install jupyter -U
 RUN pip3 install jupyterlab
-RUN pip3 install jupyterthemes
 
 ADD ./configs/jupyter/overrides.json /usr/local/share/jupyter/lab/settings/overrides.json
 
