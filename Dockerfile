@@ -42,7 +42,7 @@ RUN echo '#!/bin/bash \
   \n /usr/local/bin/jupyter lab --ip=0.0.0.0 --port=8989 --allow-root' \
   > /etc/services.d/jupyter/run
 RUN echo '#!/bin/bash \
-  \n /usr/local/bin/jupyter stop 8989' \
+  \n /usr/local/bin/jupyter lab stop 8989' \
   > /etc/services.d/jupyter/finish
 
 ENV PATH=/usr/local/bin:$PATH
