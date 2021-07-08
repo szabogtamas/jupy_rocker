@@ -32,7 +32,8 @@ RUN chmod a+rwx -R /home/rstudio
 RUN sudo apt-get update -y && \
     sudo apt-get install -y python3-pip && \
     pip3 install jupyter -U && \
-    pip3 install jupyterlab
+    pip3 install jupyterlab \
+    pip3 install jupytext
 ADD ./configs/jupyter/overrides.json /usr/local/share/jupyter/lab/settings/overrides.json
 
 # Create service for Jupyter
