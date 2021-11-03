@@ -16,4 +16,7 @@ docker run --rm \
 * Shiny can be accessed at `localhost:3838`
 
 Please note that this image is intended to be a base for other projects. Both Jupyter and RStudio is missing many important data analysis / visualization packages.  
+
+If the jupzter version of dash is reuired for a project, the port 8050 should also be open.  
+
 Individual projects will benefit from installing plotly, seaborn, pandas, etc on top of this image.
